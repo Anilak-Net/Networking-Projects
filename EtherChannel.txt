@@ -1,0 +1,110 @@
+#ASW1
+
+en
+sh spanning-tree
+conf t
+int g0/1-2
+channel-group 1 mode active (LACP)
+int po1
+switchport mode trunk
+
+
+#DSW1
+en
+sh spanning-tree
+conf t
+int g1/0/3-4
+channel-group 1 mode active
+int po1
+switchport encapsulation dot1q
+switchport mode trunk
+
+
+do sh ether-channel summary
+do sh sp-tree
+
+
+#ASW2
+
+en
+sh spanning-tree
+conf t
+int g0/1-2
+channel-group 1 mode desirable (PAgP)
+int po1
+switchport mode trunk
+
+
+#DSW2
+en
+sh spanning-tree
+conf t
+int g1/0/3-4
+channel-group 1 mode desirable
+int po1
+switchport encapsulation dot1q
+switchport mode trunk
+
+
+do sh ether-channel summary
+do sh sp-tree
+
+
+
+#DSW1
+int range g1/0/1 - 2
+no switchport
+channel-group 2 mode on 
+int po2
+ip add 10.0.0.1 255.255.255.252
+
+
+
+
+
+#DSW2
+int range g1/0/1 - 2
+no switchport
+channel-group 2 mode on 
+int po2
+ip add 10.0.0.2 255.255.255.252
+
+
+do sh ether-channel summary
+do ping 10.0.0.2
+
+#DSW1
+exit
+ip routing
+do sh ip route
+ip route 172.16.2.0 255.255.255.0 10.0.0.2
+
+
+
+#DSW2
+exit
+ip routing
+do sh ip route
+ip route 172.16.1.0 255.255.255.0 10.0.0.1
+
+
+
+5 #ASW1
+do sh ether-channel load-balance
+port-channel load-balance src-dst-ip
+
+
+
+#ASW2
+do sh ether-channel load-balance
+port-channel load-balance src-dst-ip
+
+
+#DSW1
+do sh ether-channel load-balance
+port-channel load-balance src-dst-ip
+
+
+#DSW2
+do sh ether-channel load-balance
+port-channel load-balance src-dst-ip

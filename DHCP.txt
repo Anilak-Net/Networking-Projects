@@ -1,0 +1,45 @@
+#R2
+en
+conf 
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp excluded-address 192.168.2.1 192.168.2.10
+ip dhcp excluded-address 203.0.113.1
+
+ip dhcp pool POOL1
+network 192.168.1.0 255.255.255.0
+dns-server 8.8.8.8
+domain-name jeremy-it-lab
+default-router 192.168.1.1
+
+ip dhcp pool POOL2
+network 192.168.2.0 255.255.255.0
+dns-server 8.8.8.8
+domain-name jeremy-it-lab
+default-router 192.168.2.1
+
+
+ip dhcp pool POOL3
+network 203.0.113.0 255.255.255.252
+
+
+do sh run | sec dhcp
+
+
+#R1 
+int g0/0
+ip address dhcp
+no shut
+
+#R1 (relay agent)
+ip int g0/0
+ip helper-address 203.0.113.0
+
+
+
+PC1
+ipconfig /renew
+
+
+
+
+

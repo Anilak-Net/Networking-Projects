@@ -1,0 +1,35 @@
+#SW1
+en
+show spanning-tree
+
+
+#SW4
+int f0/1 - 2
+spanning-tree link-type point-to-point
+
+int f0/24
+spanning-tree portcast
+
+
+
+#SW3
+int f0/24
+spanning-tree portcast
+
+
+
+
+#SW1
+int f0/24
+spanning-tree portcast
+spanning-tree link-type shared
+
+
+
+
+#SW3
+int range f0/23 -24
+spanning-tree portcast
+
+
+

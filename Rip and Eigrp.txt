@@ -1,0 +1,47 @@
+step1
+config ip addd
+
+step2
+config the loopback add
+int l0
+ip add 1.1.1.1 255.255.255.255
+do sh ip int br
+
+do for all routers
+
+
+step3
+R4
+conf t
+router eigrp <asn> 100
+do sh ip route connected (it will show neighbour ip add)
+network <net-id> 0.0.0.0 255.255.255.255
+no auto-summary
+do sh ip protocols
+
+passive-interface <int>
+passive-interface <int> (loopback) l0 
+	(it has no use simply create traffic in network we made it passive)
+
+R3
+en
+conf t
+router eigrp 100
+network 10.0.13.0 0.0.0.3 
+network 10.0.34.0 0.0.0.3
+network 3.3.3.3 0.0.0.0
+no auto-summary
+passive-inertface l0
+do sh ip eigrp neighbours
+			Same for all routers
+
+do sh ip route eigrp
+
+show ip eigrp neighbours
+show ip eigrp topology
+show ip route eigrp
+ 
+
+
+
+step4

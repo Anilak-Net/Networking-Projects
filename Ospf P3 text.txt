@@ -1,0 +1,63 @@
+#R1
+int s0/0/0
+ip add 192.168.12.1 255.255.255.252
+do sh controllers (DCE)
+clock rate 128000
+no shut
+
+do sh ip proto
+ip ospf 1 area 0
+int g0/0
+do sh ip ospf int s0/0/0
+do sh ip route
+
+#R2
+int s0/0/0
+ip add 192.168.12.2 255.255.255.252
+do sh controllers (DTE)
+
+no shut
+
+
+#R4
+do sh ip ospf 
+do sh ip route 
+no ip ospf network-type ppp
+
+#PC2
+ping 10.0.1.1
+
+
+#R3
+do sh ip ospf 
+do sh ip route
+do sh ip ospf int g0/0 
+
+
+#R4
+do sh ip ospf int g0/0 (check for ip add n mask and timers,network type)
+
+
+#R2
+do sh ip ospf int g0/0
+
+
+#R5
+do sh ip ospf int g0/0 (mismatch in timer)
+no ip ospf hello-interval
+no ip ospf dead-interval
+
+
+#R5
+do sh ip route (check for default route)
+ip route 0.0.0.0 0.0.0.0 203.0.113.0
+
+
+Check LSDB
+#R1
+do sh ip ospf database
+
+
+
+
+

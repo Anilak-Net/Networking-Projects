@@ -1,0 +1,19 @@
+#R1
+int g0/0
+shutdown
+no shutdown
+
+service timestamp log datetime msec
+
+#PC1
+login with the telnet
+do interface shutdown commands
+do terminal monitor
+
+do show logging
+logging buffered 8192 5
+
+
+logging host 192.168.1.100 
+logging trap debugging
+

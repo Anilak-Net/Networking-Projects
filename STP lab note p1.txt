@@ -1,0 +1,26 @@
+STP Part =01
+show spanning tree vlan 1
+show spanning tree details
+show spanning tree summary
+
+
+STP(pvstp) par =02
+show spanning tree
+	(vlan details)
+step3:
+int f0/1
+span vlan 1 cost 100 
+
+SW1
+int f0/1
+span vlan0 1 port-priority 240
+
+SW3
+do sh span vlan 1
+span portcast
+span bpduguard enable
+shutdown
+no shutdown
+ 
+
+config same on sw4 for end pcs

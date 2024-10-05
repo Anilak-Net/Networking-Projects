@@ -1,0 +1,26 @@
+#R1
+en
+conf t
+ip dhcp excluded-address 192.168.1.1 - 192.168.1.9
+ip dhcp pool POOL1
+network 192.168.1.1 255.255.255.0
+default-router 192.168.1.1
+
+#SW2
+ip dhcp snooping
+ip dhcp snooping vlan 1
+int g0/2
+ip dhcp snooping trust
+
+no ip dhcp snooping information option
+
+
+#SW1
+ip dhcp snooping
+ip dhcp snooping vlan 1
+int g0/1
+ip dhcp snooping trust
+
+
+no ip dhcp snooping information option
+

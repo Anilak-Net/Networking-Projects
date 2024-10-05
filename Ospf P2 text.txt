@@ -1,0 +1,57 @@
+step1 (ip n host)
+step2 (loopback int)
+step3 (enable ospf on routers)
+
+#R1
+int range g0/0, f1/0, l0
+ip ospf 1 area 0
+do sh ip pro
+  
+router ospf 1
+passive-interface l0
+
+auto-cost ref bandwidth 10000
+
+default-information originate
+ip route 0.0.0.0 0.0.0.0 203.0.113.0
+
+
+(make same on all Routers)
+#R2
+int range g0/0, f1/0, l0
+ip ospf 1 area 0
+router ospf 1
+passive-interface l0
+
+auto-cost ref bandwidth 10000
+
+
+#R3
+int range f1/0, f2/0, l0
+ip ospf 1 area 0
+router ospf 1
+passive-interface l0
+
+auto-cost ref bandwidth 10000
+
+#R4
+int range g0/0,f1/0, f2/0, l0
+ip ospf 1 area 0
+router ospf 1
+passive-interface default
+no passive-interface fl/0
+no passive-interface f2/0
+
+auto-cost ref bandwidth 10000
+
+do sh ip route 
+int f1/0
+shut (it will take the route thr 10.0.34.1)
+
+
+
+
+
+step4 (enable asbr for r1 to all routers)
+step5 ( check default route in all routers)
+step6 (

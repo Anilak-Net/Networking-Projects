@@ -1,0 +1,47 @@
+#R1
+step1
+en
+conf t
+class-map HTTPS_MAP
+match protocol https
+exit
+
+
+class-map HTTP_MAP
+match protocol http
+exit
+
+
+class-map ICMP_MAP
+match protocol icmp
+exit
+
+do sh run | section class-map
+
+STEP2
+policy-map g0/0/0_OUT
+class <class name>  ex:HTTPS_MAP
+set ip dscp AF31
+priority percent 10
+exit
+
+
+class <class name>  ex:HTTP_MAP
+set ip dscp AF32
+bandwidth percent 10
+exit
+
+
+class <class name>  ex:ICMP_MAP
+set ip dscp CS2
+bandwidth percent 5
+exit
+
+do sh run | section policy-map
+
+
+int g0/0/0
+service-policy output g0/0/0/_OUT
+
+sh run
+

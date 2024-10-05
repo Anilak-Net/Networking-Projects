@@ -1,0 +1,55 @@
+#SW2
+en
+conf t
+enable secret ccna
+username ccna secret ccna
+int vlan 1
+ip add 192.168.2.253 255.255.255.0
+no shutdown
+exit
+
+ip default-gateway 192.168.2.254
+
+line con 0
+login local
+exec-timeout 5 
+end
+
+exit
+
+
+ip domain name ccna.com
+crypto key generate rsa (ask for key size > 796)
+access-list 1 permit host 192.168.1.1
+
+line vty 0 15
+login local
+exec-timeout 5
+transport input ssh
+access-class 1 in
+
+#R1
+ping 192.168.2.253
+
+
+
+#PC1
+ping 192.168.2.253
+
+ssh -l <username> <ip>
+password:
+
+
+
+#BOSON
+do sh ip ssh
+ip ssh time-out 90
+
+username admin privilege 15 password <pass>
+show ssh
+
+
+
+RLX00138
+
+

@@ -1,0 +1,61 @@
+#R1
+en
+conf t
+router ospf 1
+network 172.16.0.0 0.0.255.255 area 0
+network 203.0.113.0 0.0.0.3 area 0
+do sh ip ospf interface
+
+
+#R2
+router ospf 1
+network 192.168.0.0 0.0.255.255 area 0
+network 203.0.113.0 0.0.0.3 area 0
+do sh ip ospf interface
+
+
+
+#R2
+#1
+ip access-list TO_192.168.1.0/24
+permit 172.16.1.1
+permit 172.16.2.1
+deny any
+
+int g0/0
+ip acces-group TO_192.168.1.0/24 out
+
+
+
+#2
+ip access-list TO_192.168.2.0/24
+permit 172.16.1.0 0.0.0.255
+permit any
+
+int g0/1
+ip access-group TO_192.168.2.1 out
+
+
+
+
+#R1
+#1
+access-list 1 deny 172.16.1.0 0.0.0.255
+access-list 1 permit any
+
+int g0/1
+ip access-group 1 out 
+
+
+#2
+access-list 1 deny 172.16.2.0 0.0.0.255
+access-list 1 permit any
+
+int g0/0
+ip access-group 1 out 
+
+
+
+
+do sh access-lists
+

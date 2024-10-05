@@ -1,0 +1,25 @@
+step 1
+configure all ip and host name in all int
+  
+Step2
+config loopback int for all routers
+
+step3
+#R4
+en
+conf t
+int l0
+ip add 4.4.4.4 255.255.255.255
+
+router ospf <p-id> 1
+net 0.0.0.0 255.255.255.255 area 0
+(this is trick to make every router should work ospf)
+
+
+#R1
+config all ospf
+
+ip route 0.0.0.0 0.0.0.0 203.0.113.0
+default-information originate
+
+show ip ospf ? <database>

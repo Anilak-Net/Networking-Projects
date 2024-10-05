@@ -1,0 +1,9 @@
+#R1
+snmp-server community ccna1 ro
+snmp-server community ccna2 rw
+
+
+#PC1
+pla with the MIB browser
+
+

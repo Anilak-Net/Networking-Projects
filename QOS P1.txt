@@ -1,0 +1,24 @@
+#SW1
+en
+conf t
+int range g1/0/2 - 3
+switchport mode access
+switchport access vlan 10
+swichport voice vlan 20
+
+int g1/0/1
+switchport mode trunk
+switchport trunk encapsulation dotlq
+switchport trunk allowed vlan 10,20
+
+
+
+#R1
+int f0/0.10
+encapsulation dotlq 10
+ip add 192.168.10.1 255.255.255.0
+
+
+int f0/0.20
+encapsulation dotlq 20
+ip add 192.168.20.1 255.255.255.0

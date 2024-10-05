@@ -1,0 +1,33 @@
+#R1
+en
+conf t
+ip route 0.0.0.0 0.0.0.0 203.0.113.0
+
+
+Config 1.1.1.1 on all end hosts
+
+
+
+#R1
+ip name-server 1.1.1.1
+ip host R1 192.168.0.254
+ip host PC1 192.168.0.1
+ip host pc2 192.168.0.2
+
+
+do sh hosts
+
+
+do ping pc1
+do ping pc2
+
+
+
+Boson Netsim
+
+ipconfig /ip 10.1.1.2 255.255.255.0
+ipconfig /dg 10.0.0.1
+
+
+
+

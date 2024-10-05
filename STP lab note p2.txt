@@ -1,0 +1,54 @@
+show spanning-tree
+
+#SW1
+	spanning-tree vlan 1 root primary
+	spanning-tree vlan 2 root secondary
+
+#SW2
+	spanning-tree vlan 2 root primary
+	spanning-tree vlan 1 root secondary
+
+
+
+#SW4
+	sh sp vlan 1
+	int f0/2
+	span vlan 1 cost 100  (it will become blk state)
+	sh sp vlan 1
+
+
+#SW1
+	sh sp vlan 1
+	int f0/1
+	span vlan 1 port-prority 240
+	sh sp vlan 1
+
+
+
+
+
+#SW3
+	sh sp vlan 1
+	int f0/3
+	span portcast 
+	span bpduguard enable
+
+
+
+Delete the conn from pc1 and reconnect to check portcast
+
+and connect directly to the sw4 to see not in forwarding state
+
+and connect to pc1
+
+#SW3
+	int f0/3
+	shut
+	no shut
+
+
+#SW4
+	sh sp vlan 1
+	int f0/3
+	span portcast 
+	span bpduguard enable

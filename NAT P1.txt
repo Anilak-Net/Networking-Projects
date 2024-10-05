@@ -1,0 +1,47 @@
+PART-1 (STATIC NAT)
+
+#R1
+int g0/1
+ip nat inside
+
+int g0/0
+ip nat outside
+
+ip nat inside source static <src.ip> <dest.ip> (Inside)
+
+ip nat inside source static <src.ip> <dest.ip> (Outside)
+
+show ip nat translations
+show ip nat stastitics
+
+(do the pings for requirements)
+
+
+
+PART-2 (DYNAMIC NAT)
+
+#R1
+int g0/1
+ip nat inside
+
+int g0/0
+ip nat outside
+
+acccess-list 1 permit 172.16.0.0 0.0.0.255
+
+ip nat pool POOL1 100.0.0.1 100.0.0.2 netmask 255.255.255.0
+ip nat inside source list 1 pool POOL1
+
+
+
+PAT
+
+do show run | include nat
+replace
+
+ip nat inside source list 1 interface g0/0 overload
+
+
+
+
+

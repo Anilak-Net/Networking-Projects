@@ -1,0 +1,32 @@
+1st 
+PC> ipconfig   IP
+
+2nd
+sw>show cdp neighbours
+       show interface status
+       do show cdp int <int>
+Disable>int <int>
+	no cdp enable
+
+3rd
+show cdp neighbours
+show interfaces <int>
+show cdp entry <neighbour name>
+
+
+LLDP
+SW>
+	en
+	conf t
+	lldp run
+	int <int>
+	lldp transmit
+	lldp receive
+
+R3
+	lldp run
+	int range g0/0 - 2
+	lldp transmit
+	lldp receive
+
+
